@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>TaNaFeira — Login / Cadastro Comprador</title>
+
+  <!-- FONT AWESOME -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    crossorigin="anonymous"
+  />
+
+  <!-- GOOGLE FONT -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --laranja: #ff8c00;
+      --laranja-claro: #ffb347;
+      --verde-agua: #1ca57d;
+      --azul-pastel: #d7f3ec;
+      --creme: #fffdfa;
+      --text: #24303a;
+      --radius: 18px;
+      --shadow: 0 10px 30px rgba(0,0,0,0.25);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: 
+        linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.5)),
+        url('https://static.vecteezy.com/ti/fotos-gratis/p2/12721250-aboboras-e-cabacas-organicas-coloridas-na-feira-agricola-colhendo-o-conceito-de-tempo-de-outono-jardim-queda-planta-natural-decoracao-de-dia-das-bruxas-de-acao-de-gracas-fundo-rural-fazenda-festiva-comida-vegetariana-foto.jpeg') 
+        center/cover no-repeat;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 60px 20px;
+      backdrop-filter: blur(6px);
+    }
+
+    .auth-container {
+      display: flex;
+      flex-direction: row;
+      background: rgba(255, 255, 255, 0.85);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+      width: 100%;
+      max-width: 950px;
+      min-height: 560px;
+      animation: fadeIn .8s ease forwards;
+      backdrop-filter: blur(20px);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* FORM SIDE */
+    .form-side {
+      flex: 1;
+      padding: 60px 50px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .form-side h2 {
+      color: var(--laranja);
+      font-size: 2rem;
+      margin-bottom: 10px;
+    }
+
+    .form-side p.subtitle {
+      color: #555;
+      font-size: 0.95rem;
+      margin-bottom: 32px;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      width: 100%;
+    }
+
+    form input, form select {
+      padding: 14px 16px;
+      border: 1px solid #ccc;
+      border-radius: 12px;
+      font-size: 15px;
+      transition: all .2s ease;
+      background: rgba(255,255,255,0.95);
+    }
+
+    form input:focus, form select:focus {
+      border-color: var(--laranja);
+      box-shadow: 0 0 0 3px rgba(255,140,0,0.15);
+      outline: none;
+    }
+
+    form button {
+      background: linear-gradient(90deg, var(--laranja), var(--laranja-claro));
+      border: none;
+      border-radius: 999px;
+      padding: 14px;
+      font-weight: 700;
+      font-size: 15px;
+      cursor: pointer;
+      box-shadow: 0 6px 20px rgba(255,174,0,0.3);
+      transition: all .25s ease;
+      color: #2b2b2b;
+    }
+
+    form button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(255,174,0,0.35);
+    }
+
+    .toggle-text {
+      font-size: 14px;
+      color: #444;
+      text-align: center;
+      margin-top: 25px;
+    }
+
+    .toggle-text button {
+      background: none;
+      border: none;
+      color: var(--laranja);
+      font-weight: 600;
+      cursor: pointer;
+      font-size: 14px;
+      transition: color .2s ease;
+    }
+
+    .toggle-text button:hover {
+      color: var(--verde-agua);
+    }
+
+    /* VISUAL SIDE */
+    .visual-side {
+      flex: 1;
+      background: linear-gradient(180deg, rgba(255,140,0,0.9), rgba(28,165,125,0.9));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px;
+      color: white;
+      text-align: center;
+    }
+
+    .visual-side h1 {
+      font-size: 2.5rem;
+      line-height: 1.2;
+      margin-bottom: 14px;
+      text-shadow: 0 3px 10px rgba(0,0,0,0.5);
+      letter-spacing: 0.5px;
+    }
+
+    .visual-side p {
+      font-size: 1.05rem;
+      max-width: 320px;
+      text-shadow: 0 2px 6px rgba(0,0,0,0.45);
+    }
+
+    @media (max-width: 950px) {
+      body {
+        padding: 40px 20px;
+      }
+      .auth-container { 
+        flex-direction: column-reverse; 
+        background: rgba(255,255,255,0.92);
+        min-height: auto;
+      }
+      .visual-side { 
+        min-height: 240px; 
+        padding: 35px; 
+      }
+      .form-side { 
+        padding: 45px 30px; 
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="auth-container">
+  
+  <!-- FORM SIDE -->
+  <div class="form-side">
+    <h2 id="form-title">Login Comprador</h2>
+    <p class="subtitle" id="form-subtitle">Entre com seu e-mail ou telefone para continuar</p>
+
+    <!-- LOGIN -->
+    <form id="login-form">
+      <input type="text" placeholder="E-mail ou Telefone" required>
+      <input type="password" placeholder="Senha" required>
+      <button type="submit"><i class="fas fa-sign-in-alt"></i> Entrar</button>
+    </form>
+
+    <!-- CADASTRO -->
+    <form id="signup-form" style="display:none;">
+      <input type="text" placeholder="Nome completo" required>
+      <input type="email" placeholder="E-mail" required>
+      <input type="tel" placeholder="Telefone" required>
+      <input type="password" placeholder="Senha" required>
+      <input type="text" placeholder="Cidade / Local" required>
+      <input type="text" placeholder="Endereço / Bairro" required>
+      <button type="submit"><i class="fas fa-user-plus"></i> Cadastrar</button>
+    </form>
+
+    <p class="toggle-text">
+      <span id="toggle-message">Ainda não tem conta?</span>
+      <button id="toggle-button">Cadastrar</button>
+    </p>
+  </div>
+
+  <!-- VISUAL SIDE -->
+  <div class="visual-side">
+    <div>
+      <h1>Bem-vindo ao TaNaFeira</h1>
+      <p>Descubra e compre direto de produtores locais, apoiando a economia da sua região.</p>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  const toggleBtn = document.getElementById('toggle-button');
+  const loginForm = document.getElementById('login-form');
+  const signupForm = document.getElementById('signup-form');
+  const formTitle = document.getElementById('form-title');
+  const formSubtitle = document.getElementById('form-subtitle');
+  const toggleMsg = document.getElementById('toggle-message');
+
+  toggleBtn.addEventListener('click', () => {
+    const isLogin = loginForm.style.display !== 'none';
+    if (isLogin) {
+      loginForm.style.display = 'none';
+      signupForm.style.display = 'flex';
+      formTitle.textContent = 'Cadastrar Novo Comprador';
+      formSubtitle.textContent = 'Crie sua conta e aproveite produtos frescos e regionais';
+      toggleMsg.textContent = 'Já tem conta?';
+      toggleBtn.textContent = 'Entrar';
+    } else {
+      loginForm.style.display = 'flex';
+      signupForm.style.display = 'none';
+      formTitle.textContent = 'Login Comprador';
+      formSubtitle.textContent = 'Entre com seu e-mail ou telefone para continuar';
+      toggleMsg.textContent = 'Ainda não tem conta?';
+      toggleBtn.textContent = 'Cadastrar';
+    }
+  });
+</script>
+
+</body>
+</html>

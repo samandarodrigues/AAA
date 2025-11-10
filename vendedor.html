@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>TaNaFeira — Login / Cadastro Vendedor</title>
+
+  <!-- FONT AWESOME -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    crossorigin="anonymous"
+  />
+
+  <!-- GOOGLE FONT -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --verde-esc: #1b4332;
+      --verde-mid: #2d6a4f;
+      --verde-claro: #52b788;
+      --amarelo: #ffd60a;
+      --creme: #fffdfa;
+      --text: #24303a;
+      --radius: 20px;
+      --shadow: 0 10px 30px rgba(0,0,0,0.25);
+      --transition: all .3s ease;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: 
+        linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.6)),
+        url('https://images.unsplash.com/photo-1615485737330-bf46df1f6f5e?auto=format&fit=crop&w=1200&q=80')
+        center/cover no-repeat;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 50px 20px;
+    }
+
+    .auth-container {
+      display: flex;
+      flex-direction: row;
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: 0 15px 45px rgba(0,0,0,0.35);
+      width: 100%;
+      max-width: 1000px;
+      min-height: 580px;
+      backdrop-filter: blur(15px);
+      animation: fadeIn .8s ease forwards;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(25px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* --- FORM SIDE --- */
+    .form-side {
+      flex: 1;
+      padding: 60px 50px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      background: rgba(255,255,255,0.85);
+      backdrop-filter: blur(8px);
+    }
+
+    .form-side h2 {
+      color: var(--verde-esc);
+      font-size: 2.2rem;
+      margin-bottom: 12px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+
+    .form-side p.subtitle {
+      color: #555;
+      font-size: 1rem;
+      margin-bottom: 35px;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      width: 100%;
+      transition: var(--transition);
+    }
+
+    form input, form select {
+      padding: 14px 16px;
+      border: 1px solid #ccc;
+      border-radius: 14px;
+      font-size: 15px;
+      transition: var(--transition);
+      background: rgba(255,255,255,0.95);
+    }
+
+    form input:focus, form select:focus {
+      border-color: var(--verde-mid);
+      box-shadow: 0 0 0 4px rgba(45,106,79,0.15);
+      outline: none;
+    }
+
+    form button {
+      background: linear-gradient(90deg, var(--amarelo), #ffb84d);
+      border: none;
+      border-radius: 999px;
+      padding: 15px;
+      font-weight: 700;
+      font-size: 16px;
+      cursor: pointer;
+      color: #2b2b2b;
+      box-shadow: 0 6px 20px rgba(255,174,0,0.3);
+      transition: all .25s ease;
+    }
+
+    form button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 26px rgba(255,174,0,0.4);
+    }
+
+    .toggle-text {
+      font-size: 15px;
+      color: #444;
+      text-align: center;
+      margin-top: 30px;
+    }
+
+    .toggle-text button {
+      background: none;
+      border: none;
+      color: var(--verde-mid);
+      font-weight: 700;
+      cursor: pointer;
+      font-size: 15px;
+      transition: var(--transition);
+    }
+
+    .toggle-text button:hover {
+      color: var(--verde-esc);
+      text-decoration: underline;
+    }
+
+    /* --- VISUAL SIDE ESTILOSA --- */
+    .visual-side {
+      flex: 1;
+      background: linear-gradient(135deg, var(--verde-mid) 0%, var(--verde-esc) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 50px 40px;
+      color: #fff;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* brilho decorativo */
+    .visual-side::before {
+      content: "";
+      position: absolute;
+      width: 800px;
+      height: 800px;
+      background: radial-gradient(circle at 20% 30%, rgba(255,255,255,0.15), transparent 70%);
+      top: -150px;
+      left: -150px;
+      transform: rotate(25deg);
+      transition: 1.5s ease;
+    }
+
+    .visual-side:hover::before {
+      transform: rotate(65deg);
+      opacity: 0.7;
+    }
+
+    .brand-content {
+      position: relative;
+      z-index: 2;
+      max-width: 400px;
+      animation: fadeIn 1s ease forwards;
+    }
+
+    .brand-icon {
+      width: 85px;
+      height: 85px;
+      margin: 0 auto 20px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 36px;
+      color: var(--amarelo);
+      box-shadow: 0 0 20px rgba(255,214,10,0.4);
+      transition: all .4s ease;
+    }
+
+    .visual-side:hover .brand-icon {
+      transform: rotate(12deg) scale(1.1);
+      box-shadow: 0 0 30px rgba(255,214,10,0.55);
+    }
+
+    .visual-side h1 {
+      font-size: 2.8rem;
+      line-height: 1.2;
+      margin-bottom: 18px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-shadow: 0 3px 12px rgba(0,0,0,0.45);
+    }
+
+    .visual-side p {
+      font-size: 1.1rem;
+      max-width: 340px;
+      margin: 0 auto;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.45);
+      opacity: 0.95;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-6px); }
+    }
+
+    .brand-icon {
+      animation: float 3s ease-in-out infinite;
+    }
+
+    /* --- MOBILE --- */
+    @media (max-width: 950px) {
+      .auth-container { 
+        flex-direction: column-reverse; 
+        background: rgba(255,255,255,0.92);
+      }
+
+      .visual-side { 
+        min-height: 260px; 
+        padding: 40px 30px; 
+        border-top-left-radius: var(--radius);
+        border-top-right-radius: var(--radius);
+      }
+
+      .visual-side h1 { font-size: 2rem; }
+      .brand-icon {
+        width: 70px; height: 70px;
+        font-size: 30px;
+      }
+
+      .form-side { 
+        padding: 40px 25px; 
+      }
+    }
+
+    @media (max-width: 480px) {
+      form input, form select { font-size: 14px; }
+      form button { font-size: 15px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="auth-container">
+  
+  <!-- FORM SIDE -->
+  <div class="form-side">
+    <h2 id="form-title">Login Vendedor</h2>
+    <p class="subtitle" id="form-subtitle">Entre com e-mail ou telefone</p>
+
+    <!-- LOGIN -->
+    <form id="login-form">
+      <input type="text" placeholder="E-mail ou Telefone" required>
+      <input type="password" placeholder="Senha" required>
+      <button type="submit"><i class="fas fa-sign-in-alt"></i> Entrar</button>
+    </form>
+
+    <!-- CADASTRO -->
+    <form id="signup-form" style="display:none;">
+      <input type="text" placeholder="Nome completo" required>
+      <input type="email" placeholder="E-mail" required>
+      <input type="tel" placeholder="Telefone" required>
+      <input type="password" placeholder="Senha" required>
+      <input type="text" placeholder="Cidade / Local" required>
+      <input type="text" placeholder="Endereço / Bairro" required>
+      <input type="text" placeholder="CPF / CNPJ" required>
+      <select required>
+        <option value="" disabled selected>Tipo de produto</option>
+        <option>Hortaliças</option>
+        <option>Frutas</option>
+        <option>Grãos</option>
+        <option>Produtos artesanais</option>
+        <option>Outros</option>
+      </select>
+      <button type="submit"><i class="fas fa-user-plus"></i> Cadastrar</button>
+    </form>
+
+    <p class="toggle-text">
+      <span id="toggle-message">Ainda não tem conta?</span>
+      <button id="toggle-button">Cadastrar</button>
+    </p>
+  </div>
+
+  <!-- VISUAL SIDE -->
+  <div class="visual-side">
+    <div class="brand-content">
+      <div class="brand-icon">
+        <i class="fa-solid fa-leaf"></i>
+      </div>
+      <h1>TaNaFeira</h1>
+      <p>Conectando produtores locais e clientes com transparência, confiança e praticidade.</p>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  const toggleBtn = document.getElementById('toggle-button');
+  const loginForm = document.getElementById('login-form');
+  const signupForm = document.getElementById('signup-form');
+  const formTitle = document.getElementById('form-title');
+  const formSubtitle = document.getElementById('form-subtitle');
+  const toggleMsg = document.getElementById('toggle-message');
+
+  toggleBtn.addEventListener('click', () => {
+    const isLogin = loginForm.style.display !== 'none';
+    if (isLogin) {
+      loginForm.style.display = 'none';
+      signupForm.style.display = 'flex';
+      formTitle.textContent = 'Cadastrar Novo Vendedor';
+      formSubtitle.textContent = 'Preencha as informações detalhadas para se registrar';
+      toggleMsg.textContent = 'Já tem conta?';
+      toggleBtn.textContent = 'Entrar';
+    } else {
+      loginForm.style.display = 'flex';
+      signupForm.style.display = 'none';
+      formTitle.textContent = 'Login Vendedor';
+      formSubtitle.textContent = 'Entre com e-mail ou telefone';
+      toggleMsg.textContent = 'Ainda não tem conta?';
+      toggleBtn.textContent = 'Cadastrar';
+    }
+  });
+</script>
+
+</body>
+</html>
