@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HEART://OS</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Fundo Matrix Global -->
+    <canvas id="matrix-canvas"></canvas>
+
+    <!-- Recipiente do Sistema -->
+    <div id="os-container">
+        
+        <!-- 1. TELA DE BOOT -->
+        <div id="boot-screen" class="screen active">
+            <div id="boot-terminal" class="terminal-text"></div>
+        </div>
+
+        <!-- 2. TELA DE LOGIN -->
+        <div id="login-screen" class="screen">
+            <div class="glass-card login-box">
+                <div class="scanner-container">
+                    <div class="scanner-line"></div>
+                    <div class="heart-pulse-icon">❤︎</div>
+                </div>
+                <h2 class="neon-text">HEART://OS SECURITY</h2>
+                <div id="scan-status" class="scan-text">Iniciando varredura biométrica...</div>
+                <div id="user-profile" class="profile-card hidden">
+                    <div class="avatar">.☘︎ ݁˖</div>
+                    <h3>Mrs. Volkov
+                    </h3>
+                    <p class="access-granted">ACESSO CONCEDIDO</p>
+                    <button id="btn-enter-os" class="neon-btn">Entrar no Sistema</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. INTERFACE PRINCIPAL DO OPERATING SYSTEM -->
+        <div id="desktop-screen" class="screen">
+            <!-- Barra Superior Estilo Cyberpunk -->
+            <header class="os-header">
+                <div class="header-left">
+                    <span class="pulse-dot"></span>
+                    <span class="os-title">HEART://OS v1.0.3</span>
+                </div>
+                <div class="header-center">
+                    <span id="current-folder-display">/home/arthur</span>
+                </div>
+                <div class="header-right">
+                    <span id="os-clock">00:00:00</span>
+                </div>
+            </header>
+
+            <!-- Espaço de Trabalho Central -->
+            <main class="os-workspace">
+                
+                <!-- Janela do Terminal (Principal) -->
+                <div id="terminal-window" class="glass-window window-terminal">
+                    <div class="window-header">
+                        <div class="window-dots">
+                            <span class="dot close-dot"></span>
+                            <span class="dot minimize-dot"></span>
+                            <span class="dot maximize-dot"></span>
+                        </div>
+                        <div class="window-title">evie@heart: /home/arthur</div>
+                    </div>
+                    <div class="window-content" id="terminal-body">
+                        <div id="terminal-history"></div>
+                        <div class="input-line">
+                            <span class="prompt">evie@heart:/home/arthur$</span>
+                            <input type="text" id="terminal-input" autofocus autocomplete="off" spellcheck="false">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Janela Flutuante da Carta (Oculta por Padrão) -->
+                <div id="letter-window" class="glass-window window-popup hidden">
+                    <div class="window-header">
+                        <div class="window-dots">
+                            <span class="dot close-dot" onclick="ui.closeLetter()"></span>
+                        </div>
+                        <div class="window-title">letter.txt - Editor de Texto</div>
+                    </div>
+                    <div class="window-content letter-bg">
+                        <div id="letter-text-container" class="typewriter-text"></div>
+                    </div>
+                </div>
+
+                <!-- Janela Flutuante do Player & Playlist (Oculta por Padrão) -->
+                <div id="music-window" class="glass-window window-popup hidden">
+                    <div class="window-header">
+                        <div class="window-dots">
+                            <span class="dot close-dot" onclick="ui.closeMusic()"></span>
+                        </div>
+                        <div class="window-title">Music Player & Playlist</div>
+                    </div>
+                    <div class="window-content music-layout">
+                        <!-- Lado Esquerdo: Player Principal -->
+                        <div class="player-container">
+                            <div class="disc-container">
+                                <div id="audio-disc" class="disc">♫</div>
+                            </div>
+                            <div class="track-info">
+                                <h4 id="player-title">Nenhuma música tocando</h4>
+                                <p id="player-artist">Selecione uma faixa</p>
+                                <p id="player-desc" class="romantic-desc"></p>
+                            </div>
+                            <div class="audio-controls">
+                                <button id="btn-prev" class="ctrl-btn">⏮</button>
+                                <button id="btn-play-pause" class="ctrl-btn play-main">▶</button>
+                                <button id="btn-next" class="ctrl-btn">⏭</button>
+                            </div>
+                            <div class="progress-bar-container">
+                                <span id="time-current">0:00</span>
+                                <div class="progress-bg" id="progress-timeline">
+                                    <div class="progress-fill" id="progress-bar"></div>
+                                </div>
+                                <span id="time-duration">0:00</span>
+                            </div>
+                        </div>
+                        <!-- Lado Direito: Playlist -->
+                        <div class="playlist-container">
+                            <h3>Playlist do Amor</h3>
+                            <ul id="playlist-ul">
+                                <!-- Preenchido dinamicamente via JS -->
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Janela Flutuante da Galeria de Fotos (Oculta por Padrão) -->
+                <div id="gallery-window" class="glass-window window-popup hidden">
+                    <div class="window-header">
+                        <div class="window-dots">
+                            <span class="dot close-dot" onclick="ui.closeGallery()"></span>
+                        </div>
+                        <div class="window-title">Galeria de Memórias - /pictures</div>
+                    </div>
+                    <div class="window-content gallery-grid" id="gallery-grid-content">
+                        <!-- Preenchido dinamicamente via JS -->
+                    </div>
+                </div>
+
+                <!-- Visualizador de Imagem Individual Ampliada -->
+                <div id="image-viewer-popup" class="glass-window window-popup hidden">
+                    <div class="window-header">
+                        <div class="window-dots">
+                            <span class="dot close-dot" onclick="ui.closeImageViewer()"></span>
+                        </div>
+                        <div class="window-title" id="image-viewer-title">Visualizador de Imagens</div>
+                    </div>
+                    <div class="window-content image-viewer-content">
+                        <img id="expanded-image" src="" alt="Visualização">
+                    </div>
+                </div>
+
+                <!-- Janela Secreta de Páscoa (Sudo open heart.sys) -->
+                <div id="secret-window" class="glass-window window-popup hidden">
+                    <div class="window-header">
+                        <div class="window-dots">
+                            <span class="dot close-dot" onclick="ui.closeSecret()"></span>
+                        </div>
+                        <div class="window-title">CRITICAL://HEART/CORE.SYS</div>
+                    </div>
+                    <div class="window-content secret-layout">
+                        <div class="secret-core">
+                            <div class="core-heart-animation">₊⊹♡</div>
+                            <h2 class="neon-text-red">NÚCLEO DO SENTIMENTO</h2>
+                        </div>
+                        <div class="secret-data">
+                            <p><strong>Status:</strong> Infinito</p>
+                            <p><strong>Uso de CPU:</strong> 100% focado em você</p>
+                            <p><strong>Memória RAM:</strong> Armazenando cada sorriso</p>
+                            <p><strong>Criptografia:</strong> Inquebrável (Chave: Evie+Arthur)</p>
+                            <div class="matrix-hex-box">
+                                <p>0x0001: EVIE_E_ARTHUR_PARA_SEMPRE</p>
+                                <p>0x0002: TRES_MESES_DE_PURA_FELICIDADE</p>
+                                <p>0x0003: O_AMOR_DA_MINHA_VIDA_INTEIRA</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </main>
+        </div>
+
+        <!-- 4. TELA FINAL DE DESCONEXÃO -->
+        <div id="final-screen" class="screen">
+            <div id="final-terminal" class="terminal-text"></div>
+        </div>
+
+    </div>
+
+    <!-- Elemento de áudio HTML5 nativo oculto para gerenciamento das faixas -->
+    <audio id="audio-player"></audio>
+
+    <!-- Scripts do Sistema -->
+    <script src="matrix.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
